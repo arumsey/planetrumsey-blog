@@ -1,21 +1,18 @@
-/* header: transparent title + tagline over the page background photo */
-header .header {
-  padding-top: 50px;
-}
-
+/* header: centred postmark masthead on the sand — wordmark, coral route, tagline */
 header .nav-wrapper {
   box-sizing: border-box;
-  width: 100%;
+  max-width: var(--content-width);
   margin: 0 auto;
-  padding: 0 20px;
-  background-color: transparent;
-  color: #fff;
-  font-family: Arial, Tahoma, Helvetica, FreeSans, sans-serif;
-  font-size: 13.5px;
+  padding: 0 var(--gutter);
 }
 
 header nav {
-  padding: 22px 0 7px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 64px 0 40px;
+  text-align: center;
 }
 
 header nav p {
@@ -23,29 +20,77 @@ header nav p {
 }
 
 header nav .nav-brand p {
-  margin: 0 0 10px;
-  font-size: 36px;
-  font-weight: 400;
-  line-height: normal;
-  text-shadow: rgb(0 0 0 / 30%) 1px 1px 3px;
+  font-family: var(--heading-font-family);
+  font-size: clamp(2.6rem, 1.8rem + 3.4vw, 4.25rem);
+  font-weight: 300;
+  letter-spacing: -0.035em;
+  line-height: 0.95;
 }
 
-header nav .nav-brand a:any-link,
-header nav .nav-brand a:hover {
-  color: #fff;
+header nav .nav-brand b {
+  font-weight: 800;
+}
+
+header nav .nav-brand a:any-link {
+  color: var(--heading-color);
   text-decoration: none;
 }
 
-header nav .nav-description p {
-  margin: 8.775px 0 10px;
-  padding: 0 2px;
-  font-size: 17.55px;
-  line-height: 24.57px;
+header nav .nav-brand a:hover {
+  color: var(--link-color);
 }
 
-@media (width >= 900px) {
-  header .nav-wrapper {
-    max-width: 860px;
-    padding: 0;
+header nav .nav-route {
+  display: block;
+  width: min(22rem, 80%);
+  height: 28px;
+  margin-top: 16px;
+  color: var(--coral);
+  overflow: visible;
+}
+
+header nav .nav-description p {
+  margin-top: 16px;
+  color: var(--text-color);
+  font-family: var(--heading-font-family);
+  font-size: var(--body-font-size-xs);
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+header nav .nav-social {
+  position: absolute;
+  top: 16px;
+  right: 0;
+  display: flex;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+header nav .nav-social a:any-link {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius);
+  color: var(--heading-color);
+}
+
+header nav .nav-social a:hover {
+  color: var(--link-color);
+}
+
+header nav .nav-social svg,
+header nav .nav-social img {
+  width: 26px;
+  height: 26px;
+}
+
+@media (width >= 600px) {
+  header nav .nav-social {
+    top: 24px;
   }
 }

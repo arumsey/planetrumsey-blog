@@ -163,14 +163,15 @@ function decoratePost(main) {
 }
 
 /**
- * Post photos: request display-sized renditions (they show at most ~530px wide, but EDS
- * pictures default to 2000px) and name photo-only links, which open the full-size photo.
+ * Post photos: request display-sized renditions (they show at most 680px wide in the reading
+ * column, but EDS pictures default to 2000px: 1200 covers 2x screens from 600px up) and name
+ * photo-only links, which open the full-size photo.
  * @param {Element} container element holding post content
  */
 export function decoratePostPhotos(container) {
   container.querySelectorAll('picture source[srcset*="width=2000"], picture img[src*="width=2000"]').forEach((el) => {
     const attr = el.tagName === 'IMG' ? 'src' : 'srcset';
-    el.setAttribute(attr, el.getAttribute(attr).replace('width=2000', 'width=750'));
+    el.setAttribute(attr, el.getAttribute(attr).replace('width=2000', el.media ? 'width=1200' : 'width=750'));
   });
   container.querySelectorAll('a').forEach((a) => {
     if (a.textContent.trim() || !a.querySelector('img') || a.hasAttribute('aria-label')) return;
@@ -195,7 +196,9 @@ function ensureMainHeading(main) {
 }
 
 /**
- * Loads the shared sidebar (archive, labels, social links) into the page panel.
+ * Loads the shared sidebar fragment (social links, archive, labels) as the explore band at the
+ * end of the page: each heading is grouped with the list that follows it. The social links
+ * list is left out here; the header shows it.
  * Tries the published path first, then /content for local preview.
  * @param {Element} main The main element
  */
@@ -205,10 +208,28 @@ async function loadSidebar(main) {
   const fragment = await loadFragment('/fragments/sidebar')
     || await loadFragment('/content/fragments/sidebar');
   if (!fragment) return;
+
+  const groups = document.createElement('div');
+  groups.className = 'explore-groups';
+  let group = null;
+  fragment.querySelectorAll('h2, .archive-links').forEach((el) => {
+    if (el.tagName === 'H2') {
+      group = document.createElement('div');
+      group.className = 'explore-group';
+      groups.append(group);
+    }
+    if (!group) return;
+    if (el.classList.contains('archive-links')) {
+      group.classList.add(`explore-${el.dataset.type || 'months'}`);
+    }
+    group.append(el);
+  });
+  if (!groups.children.length) return;
+
   const aside = document.createElement('aside');
   aside.className = 'sidebar';
   aside.setAttribute('aria-label', 'Blog archive and labels');
-  aside.append(...fragment.childNodes);
+  aside.append(groups);
   main.append(aside);
 }
 

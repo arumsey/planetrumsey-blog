@@ -28,6 +28,7 @@ export default async function decorate(block) {
   const config = readBlockConfig(block);
   const type = (config.type || 'months').toLowerCase().startsWith('label') ? 'labels' : 'months';
   block.textContent = '';
+  block.dataset.type = type;
 
   const posts = await fetchPosts(config.index || '/query-index.json');
   let items;
@@ -47,7 +48,10 @@ export default async function decorate(block) {
     const a = document.createElement('a');
     a.href = href;
     a.textContent = text;
-    li.append(a, ` (${count})`);
+    const total = document.createElement('span');
+    total.className = 'archive-links-count';
+    total.textContent = `(${count})`;
+    li.append(a, total);
     ul.append(li);
   });
   block.append(ul);

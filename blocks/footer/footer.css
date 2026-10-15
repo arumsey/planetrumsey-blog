@@ -1,15 +1,12 @@
-/* footer: dark translucent cap of the content column, centered attribution line */
+/* footer: harbour navy band under the slab, centred attribution line */
 footer .footer {
   box-sizing: border-box;
-  max-width: 860px;
-  margin: 0 auto 20px;
-  padding: 30px 35px;
-  border-radius: 0 0 20px 20px;
-  background-color: rgb(0 0 0 / 50%);
-  color: #cdcdcd;
-  font-family: Arial, Tahoma, Helvetica, FreeSans, sans-serif;
-  font-size: 13.5px;
-  line-height: 18.9px;
+  max-width: var(--content-width);
+  margin: 0 auto;
+  padding: 40px var(--gutter);
+  background-color: var(--band-color);
+  color: var(--on-band-color);
+  font-size: var(--body-font-size-s);
   text-align: center;
 }
 
@@ -18,11 +15,22 @@ footer .footer p {
 }
 
 footer .footer a:any-link {
-  color: #d9ee9b;
-  text-decoration: none;
+  color: var(--on-band-color);
+  text-decoration-color: var(--coral-light);
 }
 
 footer .footer a:hover {
-  color: #caff36;
-  text-decoration: underline;
+  color: var(--on-band-hover-color);
+}
+
+footer .footer :focus-visible {
+  outline-color: var(--on-band-hover-color);
+}
+
+@media (width >= 600px) {
+  footer .footer {
+    width: calc(100% - 48px);
+    margin: 16px auto 64px;
+    border-radius: var(--radius-slab);
+  }
 }

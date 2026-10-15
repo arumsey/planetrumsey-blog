@@ -1,24 +1,74 @@
-/* brand tokens extracted from blog.planetrumsey.ca (Blogger "Picture Window" theme) */
+/*
+ * brand tokens: "Postmark × Evergreen" (DESIGN-R4.md)
+ * harbour navy, sea blue and coral on sand; Bricolage Grotesque headings, Figtree text
+ */
 :root {
-  --heading-font-family: arial, tahoma, helvetica, freesans, sans-serif;
-  --body-font-family: arial, tahoma, helvetica, freesans, sans-serif;
-  --background-color: rgb(59 78 23);
-  --text-color: rgb(64 64 64);
-  --muted-text-color: rgb(138 138 138);
-  --link-color: rgb(122 159 53);
-  --link-hover-color: rgb(202 255 54);
-  --card-border-color: rgb(221 221 221);
-  --list-separator-color: rgb(128 128 128 / 50%);
-  --panel-background: rgb(255 255 255 / 80%);
-  --content-width: 860px;
-  --nav-height: 173px;
-  --body-font-size-m: 14.85px;
-  --body-font-size-s: 13.5px;
-  --body-font-size-xs: 13px;
-  --heading-font-size-xxl: 18px;
-  --heading-font-size-xl: 18px;
-  --heading-font-size-l: 18px;
-  --heading-font-size-m: 18px;
-  --heading-font-size-s: 13px;
-  --heading-font-size-xs: 13px;
+  /* palette */
+  --harbour: oklch(31% 0.075 250deg);
+  --sea: oklch(46% 0.13 240deg);
+  --coral: oklch(66% 0.16 38deg);
+  --coral-light: oklch(82% 0.1 50deg);
+  --sand: oklch(95.5% 0.02 80deg);
+  --card: oklch(99% 0.006 80deg);
+  --harbour-ink: oklch(28% 0.03 250deg);
+  --driftwood: oklch(87% 0.025 75deg);
+  --sand-on-navy: oklch(94% 0.025 80deg);
+
+  /* roles */
+  --background-color: var(--sand);
+  --surface-color: var(--card);
+  --text-color: var(--harbour-ink);
+  --heading-color: var(--harbour);
+  --link-color: var(--sea);
+  --link-underline-color: var(--coral);
+  --link-hover-color: var(--harbour);
+  --band-color: var(--harbour);
+  --on-band-color: var(--sand-on-navy);
+  --on-band-hover-color: var(--coral-light);
+  --card-border-color: var(--driftwood);
+  --list-separator-color: oklch(60% 0.03 70deg / 50%);
+  --focus-color: var(--sea);
+
+  /* type: 1.25 scale from a 17.5px body */
+  --heading-font-family: 'Bricolage Grotesque', bricolage-fallback, arial, sans-serif;
+  --body-font-family: figtree, figtree-fallback, arial, sans-serif;
+  --body-font-size-m: 1.0938rem;
+  --body-font-size-s: 0.9375rem;
+  --body-font-size-xs: 0.8125rem;
+  --heading-font-size-xxl: clamp(2rem, 1.5rem + 2vw, 2.6rem);
+  --heading-font-size-xl: clamp(1.6rem, 1.3rem + 1.1vw, 2.075rem);
+  --heading-font-size-l: 1.33rem;
+  --heading-font-size-m: 1.125rem;
+  --heading-font-size-s: 1rem;
+  --heading-font-size-xs: 0.875rem;
+  --line-height-body: 1.6;
+  --line-height-heading: 1.12;
+
+  /* layout */
+  --content-width: 920px;
+  --measure: 680px;
+  --gutter: 16px;
+  --section-padding: 32px;
+  --radius: 5px;
+  --radius-slab: 20px;
+  --slab-shadow: 0 1px 2px oklch(40% 0.04 70deg / 12%), 0 12px 32px -12px oklch(40% 0.05 70deg / 18%);
+  --nav-height: 228px;
+
+  /* motion (editorial) */
+  --ease-entrance: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@media (width >= 600px) {
+  :root {
+    --gutter: 40px;
+    --section-padding: 48px;
+    --nav-height: 240px;
+  }
+}
+
+@media (width >= 900px) {
+  :root {
+    --section-padding: 64px;
+    --nav-height: 252px;
+  }
 }

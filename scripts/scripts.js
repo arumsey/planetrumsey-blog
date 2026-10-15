@@ -143,6 +143,42 @@ function decorateButtons(main) {
 }
 
 /**
+ * Decorates a blog post: the date line above the title stays outside, the title and body
+ * go into a card. Only applies when the first section opens with a date paragraph and an h1.
+ * @param {Element} main The main element
+ */
+function decoratePost(main) {
+  const wrapper = main.querySelector(':scope > .section > .default-content-wrapper');
+  if (!wrapper) return;
+  const [date, title] = wrapper.children;
+  if (!date || !title || date.tagName !== 'P' || title.tagName !== 'H1') return;
+  date.classList.add('post-date');
+  const card = document.createElement('div');
+  card.className = 'post-card';
+  while (title.nextSibling) card.append(title.nextSibling);
+  card.prepend(title);
+  wrapper.append(card);
+}
+
+/**
+ * Loads the shared sidebar (archive, labels, social links) into the page panel.
+ * Tries the published path first, then /content for local preview.
+ * @param {Element} main The main element
+ */
+async function loadSidebar(main) {
+  // eslint-disable-next-line import/no-cycle
+  const { loadFragment } = await import('../blocks/fragment/fragment.js');
+  const fragment = await loadFragment('/fragments/sidebar')
+    || await loadFragment('/content/fragments/sidebar');
+  if (!fragment) return;
+  const aside = document.createElement('aside');
+  aside.className = 'sidebar';
+  aside.setAttribute('aria-label', 'Blog archive and labels');
+  aside.append(...fragment.childNodes);
+  main.append(aside);
+}
+
+/**
  * Decorates the main element.
  * @param {Element} main The main element
  */
@@ -152,6 +188,8 @@ export function decorateMain(main) {
   buildAutoBlocks(main);
   decorateSections(main);
   decorateBlocks(main);
+  // after decorateBlocks, so the post card wrapper is not taken for a block
+  decoratePost(main);
   decorateButtons(main);
 }
 
@@ -188,6 +226,7 @@ async function loadLazy(doc) {
 
   const main = doc.querySelector('main');
   await loadSections(main);
+  await loadSidebar(main);
 
   const { hash } = window.location;
   const element = hash ? doc.getElementById(hash.substring(1)) : false;

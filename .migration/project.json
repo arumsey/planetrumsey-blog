@@ -1,0 +1,15 @@
+{
+  "type": "da",
+  "sites": {
+    "planetrumsey-blog": {
+      "previewOrg": "arumsey",
+      "previewSite": "planetrumsey-blog",
+      "contentHostUrl": "https://content.da.live/arumsey/planetrumsey-blog/",
+      "botProtected": true,
+      "libraryUrl": "https://main--sta-boilerplate--aemdemos.aem.page/tools/sidekick/library.json"
+    }
+  },
+  "features": [
+    "site-planning"
+  ]
+}

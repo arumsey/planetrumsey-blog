@@ -1,0 +1,92 @@
+{
+  "templates": [
+    {
+      "name": "blog-post",
+      "urls": [
+        "https://blog.planetrumsey.ca/",
+        "https://blog.planetrumsey.ca/2019/06/forty-one-days.html",
+        "https://blog.planetrumsey.ca/2019/06/happy-canada-day.html",
+        "https://blog.planetrumsey.ca/2019/07/land-down-under.html",
+        "https://blog.planetrumsey.ca/2019/07/life-at-cottage.html",
+        "https://blog.planetrumsey.ca/2019/07/my-2019-sabbatical-day-2.html",
+        "https://blog.planetrumsey.ca/2019/07/one-week-to-go.html",
+        "https://blog.planetrumsey.ca/2019/07/vacation-planning-101.html",
+        "https://blog.planetrumsey.ca/2019/08/british-invasion-day-1-back-to-homeland.html",
+        "https://blog.planetrumsey.ca/2019/08/british-invasion-day-2-bromsgrove.html",
+        "https://blog.planetrumsey.ca/2019/08/costa-rica-adventure-day-0.html",
+        "https://blog.planetrumsey.ca/2019/08/costa-rica-adventure-day-1.html",
+        "https://blog.planetrumsey.ca/2019/08/costa-rica-adventure-day-10-nicoya.html",
+        "https://blog.planetrumsey.ca/2019/08/costa-rica-adventure-day-11-monteverde.html",
+        "https://blog.planetrumsey.ca/2019/08/costa-rica-adventure-day-12-hanging.html",
+        "https://blog.planetrumsey.ca/2019/08/costa-rica-adventure-day-13-hiking-and.html",
+        "https://blog.planetrumsey.ca/2019/08/costa-rica-adventure-day-14-san-jose.html",
+        "https://blog.planetrumsey.ca/2019/08/costa-rica-adventure-day-15-hello.html",
+        "https://blog.planetrumsey.ca/2019/08/costa-rica-adventure-day-2-waterfalls.html",
+        "https://blog.planetrumsey.ca/2019/08/costa-rica-adventure-day-3-ziplines-and.html",
+        "https://blog.planetrumsey.ca/2019/08/costa-rica-adventure-day-4-more.html",
+        "https://blog.planetrumsey.ca/2019/08/costa-rica-adventure-day-5-beach-bound.html",
+        "https://blog.planetrumsey.ca/2019/08/costa-rica-adventure-day-6-samara_12.html",
+        "https://blog.planetrumsey.ca/2019/08/costa-rica-adventure-day-7-beach-trio.html",
+        "https://blog.planetrumsey.ca/2019/08/costa-rica-adventure-day-8-dolphins-and.html",
+        "https://blog.planetrumsey.ca/2019/08/costa-rica-adventure-day-9-playa.html",
+        "https://blog.planetrumsey.ca/2019/09/british-invasion-day-11-woodhouse-eaves.html",
+        "https://blog.planetrumsey.ca/2019/09/british-invasion-day-12-bletchley.html",
+        "https://blog.planetrumsey.ca/2019/09/british-invasion-day-3-croeso-i-cymru.html",
+        "https://blog.planetrumsey.ca/2019/09/british-invasion-day-4-welsh-countryside.html",
+        "https://blog.planetrumsey.ca/2019/09/british-invasion-day-5-great-orme.html",
+        "https://blog.planetrumsey.ca/2019/09/british-invasion-day-7-snowdonia.html",
+        "https://blog.planetrumsey.ca/2019/09/british-invasion-day-8-birthplace-tour.html",
+        "https://blog.planetrumsey.ca/2019/09/british-invasion-day-9-derbyshire-family.html",
+        "https://blog.planetrumsey.ca/2021/10/west-coast-travels-day-1-ferries-fish.html",
+        "https://blog.planetrumsey.ca/2021/10/west-coast-travels-day-2-hiking-hiking.html",
+        "https://blog.planetrumsey.ca/2021/10/west-coast-travels-day-3-mystic-beach.html",
+        "https://blog.planetrumsey.ca/2021/10/west-coast-travels-day-4-on-road-to.html",
+        "https://blog.planetrumsey.ca/2021/10/west-coast-travels-day-5-sea-to-sky.html",
+        "https://blog.planetrumsey.ca/2021/10/west-coast-travels-day-6-back-to-city.html",
+        "https://blog.planetrumsey.ca/2021/10/west-coast-travels-day-7-canyons-and.html",
+        "https://blog.planetrumsey.ca/2021/10/west-coast-travels-day-8-city-tour.html",
+        "https://blog.planetrumsey.ca/2023/04/nashville-with-two-teenagers.html",
+        "https://blog.planetrumsey.ca/2023/06/get-ready-to-travel-with-me.html",
+        "https://blog.planetrumsey.ca/2025/05/countdown-to-costs-rica.html",
+        "https://blog.planetrumsey.ca/2025/08/working-remotely-from-costa-rica.html",
+        "https://blog.planetrumsey.ca/2026/06/exploring-canada-countdown-to.html",
+        "https://blog.planetrumsey.ca/2026/07/icebergs-puffins-and-views-our-9-days.html"
+      ],
+      "coverageGaps": [],
+      "description": "Single-column blog post card with title, date, body text and photos, post footer and pager, beside a right sidebar with search, archive and labels over a full-bleed background image",
+      "blocks": [
+        {
+          "name": "recent-posts",
+          "instances": [],
+          "pageInstances": {
+            "https://blog.planetrumsey.ca/": [
+              "body > div.content > div.content-outer > div.fauxborder-left.content-fauxborder-left > div.content-inner > div.main-outer"
+            ]
+          }
+        }
+      ],
+      "sections": [
+        {
+          "id": "post",
+          "name": "Blog post",
+          "selector": [
+            "#Blog1 .blog-posts",
+            ".column-center-inner .blog-posts"
+          ],
+          "style": null,
+          "blocks": [
+            "recent-posts"
+          ],
+          "defaultContent": [
+            ".date-header",
+            ".post-title",
+            ".post-body"
+          ]
+        }
+      ]
+    }
+  ],
+  "metadata": {
+    "projectType": "da"
+  }
+}

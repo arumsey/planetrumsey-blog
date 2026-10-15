@@ -1,0 +1,24 @@
+/* brand tokens extracted from blog.planetrumsey.ca (Blogger "Picture Window" theme) */
+:root {
+  --heading-font-family: arial, tahoma, helvetica, freesans, sans-serif;
+  --body-font-family: arial, tahoma, helvetica, freesans, sans-serif;
+  --background-color: rgb(59 78 23);
+  --text-color: rgb(64 64 64);
+  --muted-text-color: rgb(138 138 138);
+  --link-color: rgb(122 159 53);
+  --link-hover-color: rgb(202 255 54);
+  --card-border-color: rgb(221 221 221);
+  --list-separator-color: rgb(128 128 128 / 50%);
+  --panel-background: rgb(255 255 255 / 80%);
+  --content-width: 860px;
+  --nav-height: 173px;
+  --body-font-size-m: 14.85px;
+  --body-font-size-s: 13.5px;
+  --body-font-size-xs: 13px;
+  --heading-font-size-xxl: 18px;
+  --heading-font-size-xl: 18px;
+  --heading-font-size-l: 18px;
+  --heading-font-size-m: 18px;
+  --heading-font-size-s: 13px;
+  --heading-font-size-xs: 13px;
+}

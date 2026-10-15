@@ -1,0 +1,80 @@
+/* post summaries: date line above a white card, matching the post pages */
+.post-list .post-list-heading {
+  margin: 6.5px 0 15px;
+  color: var(--muted-text-color);
+  font-size: var(--body-font-size-xs);
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.post-list .post-list-posts,
+.post-list .post-list-labels {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.post-list .post-list-date {
+  margin: 6.5px 0;
+  color: var(--text-color);
+  font-size: var(--body-font-size-xs);
+  font-weight: 700;
+  line-height: normal;
+  text-transform: uppercase;
+}
+
+.post-list .post-list-card {
+  display: flow-root;
+  margin: 0 -20px 20px;
+  padding: 15px 20px;
+  border: 1px solid var(--card-border-color);
+  border-radius: 5px;
+  background-color: #fff;
+}
+
+.post-list .post-list-image {
+  float: right;
+  width: 120px;
+  margin: 0 0 10px 15px;
+}
+
+.post-list .post-list-image img {
+  display: block;
+  width: 100%;
+  height: 90px;
+  object-fit: cover;
+  border-radius: 3px;
+}
+
+.post-list .post-list-card h3 {
+  margin: 0 0 10px;
+  font-size: var(--heading-font-size-l);
+}
+
+.post-list .post-list-card h3 a:any-link {
+  color: var(--text-color);
+  text-decoration: none;
+}
+
+.post-list .post-list-card h3 a:hover {
+  color: var(--link-hover-color);
+  text-decoration: underline;
+}
+
+.post-list .post-list-card p {
+  margin: 0;
+  font-size: var(--body-font-size-m);
+  line-height: 20.79px;
+}
+
+.post-list .post-list-labels li {
+  padding: 3.375px 0;
+}
+
+.post-list .post-list-labels li + li {
+  border-top: 1px dashed var(--list-separator-color);
+}
+
+.post-list .post-list-empty {
+  margin: 0 0 20px;
+}

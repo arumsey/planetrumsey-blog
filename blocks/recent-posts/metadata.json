@@ -1,0 +1,26 @@
+{
+  "variantName": "recent-posts",
+  "baseBlock": "recent-posts",
+  "canonicalModel": "standalone",
+  "visualCharacteristics": {
+    "colorScheme": "light",
+    "density": "dense",
+    "hasGrid": false,
+    "imagePattern": "large",
+    "structure": "stacked list of the newest blog posts: uppercase date line above a card holding the linked post title and the full post body (text and images)"
+  },
+  "contentPattern": "Single config row authored as key/value cells: `count` (number of posts, default 2) and optional `index` (query index path, default /query-index.json). Post content is fetched dynamically from the query index and each post's .plain.html; nothing else is authored in the block.",
+  "usage": {
+    "pagesUsing": [
+      {
+        "url": "https://blog.planetrumsey.ca/",
+        "instanceId": "372d42d4f24b"
+      }
+    ],
+    "reuseCount": 1
+  },
+  "options": [],
+  "memberVariantIds": [
+    "v_e859f758b4fe"
+  ]
+}

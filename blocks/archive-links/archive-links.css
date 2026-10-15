@@ -1,0 +1,4 @@
+/* lists inherit the sidebar list styles (styles.css: main > .sidebar ul/li) */
+.archive-links ul {
+  margin-bottom: 30px;
+}

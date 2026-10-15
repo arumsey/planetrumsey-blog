@@ -1,0 +1,37 @@
+/* each post: date line above a white card, as on the source homepage */
+.recent-posts .recent-posts-date {
+  margin: 6.5px 0;
+  color: var(--text-color);
+  font-size: var(--body-font-size-xs);
+  font-weight: 700;
+  line-height: normal;
+  text-transform: uppercase;
+}
+
+.recent-posts .recent-posts-card {
+  margin: 0 -20px 20px;
+  padding: 15px 20px;
+  border: 1px solid var(--card-border-color);
+  border-radius: 5px;
+  background-color: #fff;
+}
+
+.recent-posts .recent-posts-card > h2:first-child {
+  margin: 0 0 21px;
+  font-size: var(--heading-font-size-xl);
+}
+
+.recent-posts .recent-posts-card > h2 a:any-link {
+  color: var(--text-color);
+  text-decoration: none;
+}
+
+.recent-posts .recent-posts-card > h2 a:hover {
+  color: var(--link-hover-color);
+  text-decoration: underline;
+}
+
+.recent-posts .recent-posts-card > p {
+  font-size: var(--body-font-size-m);
+  line-height: 20.79px;
+}

@@ -20,14 +20,27 @@
  */
 const TransformHook = { beforeTransform: 'beforeTransform', afterTransform: 'afterTransform' };
 
+// goo.gl/maps short links in post bodies → their Google Maps targets (resolved 2026-10-15)
+const RESOLVED_MAP_LINKS = {
+  'https://goo.gl/maps/uMzbnjfYDbGJEfM49': 'https://maps.google.com/?q=Alajuela+Province,+Sarchi&ftid=0x8fa0596559c82661:0x6fb47b55d280c3be',
+  'https://goo.gl/maps/6FohMQjuMpjxoMku9': 'https://maps.google.com/?q=Playa+Barrigona,+Guanacaste+Province&ftid=0x8f9faa9992f0ba77:0x444831972d6c4cdd',
+  'https://goo.gl/maps/hWs9TQf8vyqpeYQJ6': 'https://maps.google.com/?q=Lo+Que+Hay,+Provincia+de+Guanacaste,+S%C3%A1mara&ftid=0x8f9faa048d8c3e9f:0x7b84e05f3a1f72c1',
+};
+
 export default function transform(hookName, element, payload) {
   if (hookName === TransformHook.beforeTransform) {
     // Embeds in post bodies (Instagram reel, Blogger video) become plain links
     // before iframes are removed: the project has no embed block.
+    // Videos hosted in Blogger's own player have no file to migrate, so they are dropped
+    // (the site keeps no links back to Blogger).
     const doc = element.ownerDocument || document;
     element.querySelectorAll('.post-body iframe[src]').forEach((iframe) => {
       let href = iframe.getAttribute('src');
       let label = 'Watch the video';
+      if (/(^|\.)blogger\.com\/video\.g/.test(href)) {
+        iframe.remove();
+        return;
+      }
       const instagram = href.match(/instagram\.com\/(reel|p)\/([^/?#]+)/);
       if (instagram) {
         href = `https://www.instagram.com/${instagram[1]}/${instagram[2]}/`;
@@ -39,6 +52,16 @@ export default function transform(hookName, element, payload) {
       a.textContent = label;
       p.append(a);
       iframe.replaceWith(p);
+    });
+
+    // Place links pasted as "Place name, https://goo.gl/maps/…" into the link field: Blogger
+    // made them relative, so they point at www.blogger.com/<text>. Use the embedded map link,
+    // resolved to its Google Maps target (goo.gl short links are being retired).
+    element.querySelectorAll('.post-body a[href*="blogger.com/"]').forEach((a) => {
+      const decoded = decodeURIComponent(a.getAttribute('href').replace(/^https?:\/\/(www\.)?blogger\.com\//, ''));
+      const embedded = decoded.match(/https?:\/\/\S+$/);
+      if (!embedded) return;
+      a.setAttribute('href', RESOLVED_MAP_LINKS[embedded[0]] || embedded[0]);
     });
 
     // Photos pasted inside a stray code block (<pre><code>) would be dropped as code:

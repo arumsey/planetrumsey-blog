@@ -55,12 +55,21 @@ var CustomImportScript = (() => {
 
   // tools/importer/transformers/planetrumsey-cleanup.js
   var TransformHook = { beforeTransform: "beforeTransform", afterTransform: "afterTransform" };
+  var RESOLVED_MAP_LINKS = {
+    "https://goo.gl/maps/uMzbnjfYDbGJEfM49": "https://maps.google.com/?q=Alajuela+Province,+Sarchi&ftid=0x8fa0596559c82661:0x6fb47b55d280c3be",
+    "https://goo.gl/maps/6FohMQjuMpjxoMku9": "https://maps.google.com/?q=Playa+Barrigona,+Guanacaste+Province&ftid=0x8f9faa9992f0ba77:0x444831972d6c4cdd",
+    "https://goo.gl/maps/hWs9TQf8vyqpeYQJ6": "https://maps.google.com/?q=Lo+Que+Hay,+Provincia+de+Guanacaste,+S%C3%A1mara&ftid=0x8f9faa048d8c3e9f:0x7b84e05f3a1f72c1"
+  };
   function transform(hookName, element, payload) {
     if (hookName === TransformHook.beforeTransform) {
       const doc = element.ownerDocument || document;
       element.querySelectorAll(".post-body iframe[src]").forEach((iframe) => {
         let href = iframe.getAttribute("src");
         let label = "Watch the video";
+        if (/(^|\.)blogger\.com\/video\.g/.test(href)) {
+          iframe.remove();
+          return;
+        }
         const instagram = href.match(/instagram\.com\/(reel|p)\/([^/?#]+)/);
         if (instagram) {
           href = `https://www.instagram.com/${instagram[1]}/${instagram[2]}/`;
@@ -72,6 +81,12 @@ var CustomImportScript = (() => {
         a.textContent = label;
         p.append(a);
         iframe.replaceWith(p);
+      });
+      element.querySelectorAll('.post-body a[href*="blogger.com/"]').forEach((a) => {
+        const decoded = decodeURIComponent(a.getAttribute("href").replace(/^https?:\/\/(www\.)?blogger\.com\//, ""));
+        const embedded = decoded.match(/https?:\/\/\S+$/);
+        if (!embedded) return;
+        a.setAttribute("href", RESOLVED_MAP_LINKS[embedded[0]] || embedded[0]);
       });
       element.querySelectorAll(".post-body pre").forEach((pre) => {
         if (!pre.querySelector("img")) return;

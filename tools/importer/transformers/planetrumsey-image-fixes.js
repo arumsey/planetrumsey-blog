@@ -52,8 +52,31 @@ const recoveredFor = (url) => {
   return token ? RECOVERED_DRIVE_FILES[token[1]] : null;
 };
 
-export default function transform(hookName, element) {
+/*
+ * Full-size Blogger photos: older posts (e.g. the 2019 British Invasion series) show s320
+ * thumbnails wrapped in a link to the s1600 original. Import the original instead of the thumbnail.
+ */
+const BLOGGER_IMAGE = /^https?:\/\/(blogger\.googleusercontent\.com\/img\/|\d+\.bp\.blogspot\.com\/)/;
+const SIZED_PATH = /\/(s|w)\d+(-[a-z0-9-]+)?\//;
+
+const fullSizeFor = (img) => {
+  const src = img.getAttribute('src') || '';
+  if (!BLOGGER_IMAGE.test(src) || !SIZED_PATH.test(src)) return null;
+  const href = img.closest('a[href]')?.getAttribute('href') || '';
+  // the link must point at the same photo (same file name), not at another page or image
+  const file = (u) => u.split('/').pop();
+  if (BLOGGER_IMAGE.test(href) && file(href) === file(src)) return href;
+  return null;
+};
+
+export default function transform(hookName, element, payload) { // eslint-disable-line no-unused-vars
   if (hookName !== TransformHook.beforeTransform) return;
+  element.querySelectorAll('img[src]').forEach((img) => {
+    const full = fullSizeFor(img);
+    if (!full) return;
+    img.setAttribute('src', full);
+    img.removeAttribute('srcset');
+  });
   element.querySelectorAll('img[src*="/drive-viewer/"]').forEach((img) => {
     const fileId = recoveredFor(img.getAttribute('src'));
     if (!fileId) return;

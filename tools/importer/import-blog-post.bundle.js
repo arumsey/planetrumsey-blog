@@ -216,8 +216,25 @@ var CustomImportScript = (() => {
     const token = (url || "").match(/drive-viewer\/([A-Za-z0-9_-]{40})/);
     return token ? RECOVERED_DRIVE_FILES[token[1]] : null;
   };
-  function transform3(hookName, element) {
+  var BLOGGER_IMAGE = /^https?:\/\/(blogger\.googleusercontent\.com\/img\/|\d+\.bp\.blogspot\.com\/)/;
+  var SIZED_PATH = /\/(s|w)\d+(-[a-z0-9-]+)?\//;
+  var fullSizeFor = (img) => {
+    var _a;
+    const src = img.getAttribute("src") || "";
+    if (!BLOGGER_IMAGE.test(src) || !SIZED_PATH.test(src)) return null;
+    const href = ((_a = img.closest("a[href]")) == null ? void 0 : _a.getAttribute("href")) || "";
+    const file = (u) => u.split("/").pop();
+    if (BLOGGER_IMAGE.test(href) && file(href) === file(src)) return href;
+    return null;
+  };
+  function transform3(hookName, element, payload) {
     if (hookName !== TransformHook2.beforeTransform) return;
+    element.querySelectorAll("img[src]").forEach((img) => {
+      const full = fullSizeFor(img);
+      if (!full) return;
+      img.setAttribute("src", full);
+      img.removeAttribute("srcset");
+    });
     element.querySelectorAll('img[src*="/drive-viewer/"]').forEach((img) => {
       const fileId = recoveredFor(img.getAttribute("src"));
       if (!fileId) return;

@@ -1,10 +1,13 @@
 /**
- * Fetches the nav fragment: /content first (local preview), then the site root (DA/EDS).
+ * Fetches the nav fragment: the site root on published sites, /content on local preview.
  * @returns {Promise<HTMLElement|null>} wrapper holding the fragment's sections
  */
 async function fetchNav() {
-  let resp = await fetch('/content/nav.plain.html');
-  if (!resp.ok) resp = await fetch('/nav.plain.html');
+  // local preview serves fragments under /content; published sites at the root
+  const paths = ['/content/nav.plain.html', '/nav.plain.html'];
+  if (window.location.hostname !== 'localhost') paths.reverse();
+  let resp = await fetch(paths[0]);
+  if (!resp.ok) resp = await fetch(paths[1]);
   if (!resp.ok) return null;
   const wrapper = document.createElement('div');
   wrapper.innerHTML = await resp.text();

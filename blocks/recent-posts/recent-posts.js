@@ -1,5 +1,6 @@
 import { readBlockConfig } from '../../scripts/aem.js';
 import { fetchPosts } from '../../scripts/blog-index.js';
+import { decoratePostPhotos } from '../../scripts/scripts.js';
 
 /**
  * Fetches a post's content: the published path first, then /content (local preview).
@@ -52,6 +53,7 @@ function buildPost(entry, section) {
   const card = document.createElement('div');
   card.className = 'recent-posts-card';
   card.append(...section.childNodes);
+  decoratePostPhotos(card);
   article.append(card);
   return article;
 }

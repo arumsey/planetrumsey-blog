@@ -158,6 +158,40 @@ function decoratePost(main) {
   while (title.nextSibling) card.append(title.nextSibling);
   card.prepend(title);
   wrapper.append(card);
+  // eslint-disable-next-line no-use-before-define
+  decoratePostPhotos(card);
+}
+
+/**
+ * Post photos: request display-sized renditions (they show at most ~530px wide, but EDS
+ * pictures default to 2000px) and name photo-only links, which open the full-size photo.
+ * @param {Element} container element holding post content
+ */
+export function decoratePostPhotos(container) {
+  container.querySelectorAll('picture source[srcset*="width=2000"], picture img[src*="width=2000"]').forEach((el) => {
+    const attr = el.tagName === 'IMG' ? 'src' : 'srcset';
+    el.setAttribute(attr, el.getAttribute(attr).replace('width=2000', 'width=750'));
+  });
+  container.querySelectorAll('a').forEach((a) => {
+    if (a.textContent.trim() || !a.querySelector('img') || a.hasAttribute('aria-label')) return;
+    const alt = a.querySelector('img').getAttribute('alt');
+    a.setAttribute('aria-label', alt ? `${alt} (full-size photo)` : 'Open full-size photo');
+  });
+}
+
+/**
+ * Gives a page without a main heading a visually hidden h1 from its title (e.g. the homepage,
+ * whose posts come from the Recent Posts block), so it still has a document outline.
+ * @param {Element} main The main element
+ */
+function ensureMainHeading(main) {
+  if (main.querySelector('h1')) return;
+  const title = document.querySelector('meta[property="og:title"]')?.content || document.title;
+  if (!title) return;
+  const h1 = document.createElement('h1');
+  h1.className = 'visually-hidden';
+  h1.textContent = title;
+  main.prepend(h1);
 }
 
 /**
@@ -203,6 +237,7 @@ async function loadEager(doc) {
   const main = doc.querySelector('main');
   if (main) {
     decorateMain(main);
+    ensureMainHeading(main);
     document.body.classList.add('appear');
     await loadSection(main.querySelector('.section'), waitForFirstImage);
   }

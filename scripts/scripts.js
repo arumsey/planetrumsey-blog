@@ -175,16 +175,7 @@ export function decoratePostPhotos(container) {
   });
   container.querySelectorAll('a').forEach((a) => {
     if (a.textContent.trim() || !a.querySelector('img') || a.hasAttribute('aria-label')) return;
-    const img = a.querySelector('img');
-    // Authored links to a photo's own media file (/2025/08/media_<hash>.jpg) are published as
-    // page paths (/2025/08/media-<hash>-jpg), which 404: open the photo's original file instead.
-    const href = a.getAttribute('href') || '';
-    if (/(^|\/)media[-_][0-9a-f]{20,}[-.](jpe?g|png|gif|webp)$/i.test(href.split(/[?#]/)[0])) {
-      const full = new URL(img.getAttribute('src'), window.location.href);
-      full.search = '';
-      a.href = full.href;
-    }
-    const alt = img.getAttribute('alt');
+    const alt = a.querySelector('img').getAttribute('alt');
     a.setAttribute('aria-label', alt ? `${alt} (full-size photo)` : 'Open full-size photo');
   });
 }

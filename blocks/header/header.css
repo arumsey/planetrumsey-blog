@@ -89,8 +89,35 @@ header nav .nav-social img {
   height: 26px;
 }
 
+/* search link: top left, opposite the social links */
+header nav .nav-search {
+  position: absolute;
+  top: 16px;
+  left: 0;
+}
+
+header nav .nav-search a:any-link {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius);
+  color: var(--heading-color);
+}
+
+header nav .nav-search a:hover,
+header nav .nav-search a[aria-current='page'] {
+  color: var(--link-color);
+}
+
+header nav .nav-search svg {
+  width: 26px;
+  height: 26px;
+}
+
 @media (width >= 600px) {
-  header nav .nav-social {
+  header nav .nav-social,
+  header nav .nav-search {
     top: 24px;
   }
 }

@@ -1,3 +1,5 @@
+import { searchUrl } from '../../scripts/blog-index.js';
+
 /**
  * Fetches a fragment's markup: the site root on published sites, /content on local preview.
  * @param {string} path fragment path, e.g. /nav
@@ -59,6 +61,31 @@ const instagramIcon = () => svg('0 0 24 24', 'nav-social-icon', [
     cx: 17.4, cy: 6.6, r: 1.1, fill: 'currentColor',
   }],
 ]);
+
+const searchIcon = () => svg('0 0 24 24', 'nav-search-icon', [
+  ['circle', {
+    cx: 10.5, cy: 10.5, r: 6.5, fill: 'none', stroke: 'currentColor', 'stroke-width': 1.8,
+  }],
+  ['path', {
+    d: 'M15.5 15.5 L20.5 20.5', fill: 'none', stroke: 'currentColor', 'stroke-width': 1.8, 'stroke-linecap': 'round',
+  }],
+]);
+
+/**
+ * Link to the search page, shown opposite the social links.
+ * @returns {HTMLParagraphElement} wrapper holding the link
+ */
+function buildSearchLink() {
+  const p = document.createElement('p');
+  p.className = 'nav-search';
+  const link = document.createElement('a');
+  link.href = searchUrl();
+  link.setAttribute('aria-label', 'Search posts');
+  if (window.location.pathname === searchUrl()) link.setAttribute('aria-current', 'page');
+  link.append(searchIcon());
+  p.append(link);
+  return p;
+}
 
 /**
  * Wordmark: the site name with its second half in bold, "planet" + "rumsey".
@@ -132,6 +159,7 @@ export default async function decorate(block) {
   const brandLink = brand?.querySelector('a');
   if (brandLink) decorateWordmark(brandLink);
   if (brand) brand.after(route());
+  nav.append(buildSearchLink());
   if (social) nav.append(social);
 
   const navWrapper = document.createElement('div');

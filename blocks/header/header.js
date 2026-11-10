@@ -1,4 +1,4 @@
-import { searchUrl } from '../../scripts/blog-index.js';
+const SEARCH_PATH = '/search';
 
 /**
  * Fetches a fragment's markup: the site root on published sites, /content on local preview.
@@ -79,9 +79,9 @@ function buildSearchLink() {
   const p = document.createElement('p');
   p.className = 'nav-search';
   const link = document.createElement('a');
-  link.href = searchUrl();
+  link.href = SEARCH_PATH;
   link.setAttribute('aria-label', 'Search posts');
-  if (window.location.pathname === searchUrl()) link.setAttribute('aria-current', 'page');
+  if (window.location.pathname === SEARCH_PATH) link.setAttribute('aria-current', 'page');
   link.append(searchIcon());
   p.append(link);
   return p;

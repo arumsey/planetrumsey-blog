@@ -1,13 +1,27 @@
 import { createOptimizedPicture } from '../../scripts/aem.js';
-import {
-  fetchPosts, labelUrl, postDate, postTags,
-} from '../../scripts/blog-index.js';
+import { fetchPosts, labelUrl, postTags } from '../../scripts/blog-index.js';
 
 /* Client-side search over the query index, after the AEM Block Collection search block:
  * posts whose title, summary, labels or address contain every search term, title matches
- * first, with the matching terms highlighted. The query is kept in the page URL (?q=). */
+ * first, with the matching terms highlighted. The query is kept in the page URL (?q=).
+ * Imports only long-standing blog-index exports: browsers cache scripts separately, so a
+ * visitor can pair this file with an older cached blog-index.js. */
 
 const MIN_QUERY_LENGTH = 2;
+
+/**
+ * Long date for a post, e.g. "Monday, August 19, 2019" (as on the archive pages).
+ * @param {Object} entry query index entry
+ * @returns {string} formatted date, or '' when the index has none
+ */
+function postDate(entry) {
+  const match = (entry.publicationDate || '').match(/^(\d{4})-(\d{2})-(\d{2})/);
+  if (!match) return '';
+  const [, y, m, d] = match.map(Number);
+  return new Date(y, m - 1, d).toLocaleDateString('en-US', {
+    weekday: 'long', month: 'long', day: 'numeric', year: 'numeric',
+  });
+}
 
 /**
  * The search terms in a query: lower-cased words, without duplicates.

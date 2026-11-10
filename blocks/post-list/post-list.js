@@ -1,7 +1,21 @@
 import { createOptimizedPicture, readBlockConfig } from '../../scripts/aem.js';
 import {
-  fetchPosts, labelUrl, monthLabel, postDate, postMonth, postTags,
+  fetchPosts, labelUrl, monthLabel, postMonth, postTags,
 } from '../../scripts/blog-index.js';
+
+/**
+ * Long date for a post, e.g. "Monday, August 19, 2019".
+ * @param {Object} entry query index entry
+ * @returns {string} formatted date, or '' when the index has none
+ */
+function postDate(entry) {
+  const match = (entry.publicationDate || '').match(/^(\d{4})-(\d{2})-(\d{2})/);
+  if (!match) return '';
+  const [, y, m, d] = match.map(Number);
+  return new Date(y, m - 1, d).toLocaleDateString('en-US', {
+    weekday: 'long', month: 'long', day: 'numeric', year: 'numeric',
+  });
+}
 
 /**
  * One post summary: date line, then a card with image, linked title and description.

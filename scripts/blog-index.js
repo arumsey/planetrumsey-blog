@@ -75,7 +75,22 @@ export function monthLabel(month) {
 }
 
 /**
- * Link to the archive page for a month, and to the labels page for a label.
+ * Long date for a post, e.g. "Monday, August 19, 2019".
+ * @param {Object} entry query index entry
+ * @returns {string} formatted date, or '' when the index has none
+ */
+export function postDate(entry) {
+  const match = (entry.publicationDate || '').match(/^(\d{4})-(\d{2})-(\d{2})/);
+  if (!match) return '';
+  const [, y, m, d] = match.map(Number);
+  return new Date(y, m - 1, d).toLocaleDateString('en-US', {
+    weekday: 'long', month: 'long', day: 'numeric', year: 'numeric',
+  });
+}
+
+/**
+ * Link to the archive page for a month, to the labels page for a label, and to search results.
  */
 export const archiveUrl = (month) => `/archive?month=${encodeURIComponent(month)}`;
 export const labelUrl = (label) => `/labels?label=${encodeURIComponent(label)}`;
+export const searchUrl = (query = '') => (query ? `/search?q=${encodeURIComponent(query)}` : '/search');
